@@ -1,0 +1,21 @@
+{{- /*
+  Copyright (C) 2023-2024  ANSSI
+  SPDX-License-Identifier: MIT
+*/ -}}
+
+<ul>
+  {{ range $chall_id, $chall_data := $.Site.Data.challenges }}
+  {{- range $path, $pkg_licenses := $chall_data.thirdparty_licenses }}
+  {{- if and $pkg_licenses (hasPrefix $path "anssi/") }}
+  <li>
+    <a href="https://hub.docker.com/r/{{ $path }}" target="_blank">{{ $path }}</a>
+    <ul class="mb-2">
+      {{- range $pkg_name, $spdx_license := $pkg_licenses }}
+      <li><b>{{ $pkg_name }}</b> {{ $spdx_license | markdownify }}</li>
+      {{- end }}
+    </ul>
+  </li>
+  {{- end }}
+  {{- end }}
+  {{- end }}
+</ul>

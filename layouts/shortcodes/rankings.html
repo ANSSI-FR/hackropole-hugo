@@ -1,0 +1,10 @@
+{{- /*
+  Copyright (C) 2023-2024  ANSSI
+  SPDX-License-Identifier: MIT
+*/ -}}
+
+<ul>
+  {{ range sort (where site.RegularPages "Type" "ranking") ".Date" "desc" }}
+  <li><a href='{{ .RelPermalink }}'>{{ .LinkTitle }}</a></li>
+  {{ end }}
+</ul>

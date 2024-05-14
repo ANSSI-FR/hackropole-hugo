@@ -1,0 +1,9 @@
+// Copyright (c) 2011-2023 The Bootstrap Authors
+// SPDX-License-Identifier: MIT
+
+// Resize anything
+
+@mixin resizable($direction) {
+  overflow: auto; // Per CSS3 UI, `resize` only applies when `overflow` isn't `visible`
+  resize: $direction; // Options: horizontal, vertical, both
+}

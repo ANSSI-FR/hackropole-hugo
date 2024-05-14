@@ -1,0 +1,22 @@
+{{- /*
+  Copyright (C) 2023-2024  ANSSI
+  SPDX-License-Identifier: MIT
+*/ -}}
+
+{{ define "main" }}
+<div class="jumbotron py-4 mb-3 text-center">
+  <h1 class="fw-light">{{ .Title }}</h1>
+</div>
+
+<main class="container markdown">
+  <div class="row">
+    <div class="col-lg-3 mb-3">
+      <div class="h4 border-bottom border-secondary pb-2 mb-3 mt-2"><svg class="bi me-2" aria-hidden="true"><use href="#list"></use></svg>{{ i18n "toc" }}</div>
+      {{ .TableOfContents }}
+    </div>
+    <div class="col order-lg-first">
+      {{ .Content }}
+    </div>
+  </div>
+</main>
+{{ end }}

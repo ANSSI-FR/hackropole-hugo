@@ -1,0 +1,290 @@
+// Copyright (C) 2023-2024  ANSSI
+// SPDX-License-Identifier: MIT
+
+// Import Bootstrap functions
+@import "vendor/bootstrap/mixins/banner";
+@include bsBanner("");
+@import "vendor/bootstrap/functions";
+
+// Customize then import variables
+$primary: #091b33;
+$info: #375a7f;
+$badge-font-weight: 500;
+$badge-padding-x: .45em;
+$body-bg-dark: #061323;
+$link-color-dark: tint-color($primary, 50%);
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1440px
+);
+
+// Fix floating inputs size change on focus
+$input-height-border: 0;
+
+@import "vendor/bootstrap/variables";
+@import "vendor/bootstrap/variables-dark";
+
+// Include Bootstrap parts
+@import "vendor/bootstrap/maps";
+@import "vendor/bootstrap/mixins";
+@import "vendor/bootstrap/utilities";
+@import "vendor/bootstrap/root";
+@import "vendor/bootstrap/reboot";
+@import "vendor/bootstrap/type";
+@import "vendor/bootstrap/images";
+@import "vendor/bootstrap/containers";
+@import "vendor/bootstrap/grid";
+@import "vendor/bootstrap/tables";
+@import "vendor/bootstrap/forms";
+@import "vendor/bootstrap/buttons";
+@import "vendor/bootstrap/transitions";
+@import "vendor/bootstrap/dropdown";
+@import "vendor/bootstrap/nav";
+@import "vendor/bootstrap/navbar";
+@import "vendor/bootstrap/badge";
+@import "vendor/bootstrap/close";
+@import "vendor/bootstrap/toasts";
+@import "vendor/bootstrap/spinners";
+@import "vendor/bootstrap/modal";
+@import "vendor/bootstrap/helpers";
+@import "vendor/bootstrap/utilities/api";
+
+@import "vendor/katex/katex";
+
+@import "search";
+@import "list-file";
+@import "pygments-solarized-light";
+@import "pygments-solarized-dark";
+
+// Better navbar lisibility
+.navbar-nav {
+  --bs-navbar-color: rgba(255, 255, 255, 0.8);
+  --bs-navbar-hover-color: rgba(255, 255, 255, 0.8);
+}
+.nav-link:focus-visible {
+  outline: solid;
+}
+
+// Pure-CSS implementation of Bootstrap dropdown
+.dropdown:hover .dropdown-menu,
+.dropdown:focus-within .dropdown-menu {
+  display: block;
+}
+@include media-breakpoint-up(md) {
+  .dropdown:hover .dropdown-menu-end,
+  .dropdown:focus-within .dropdown-menu-end {
+    transform: translateX(-100%);
+    left: 100%;
+  }
+}
+
+// Bootstrap icons support
+.bi {
+  width: 1em;
+  height: 1em;
+  vertical-align: -.125em;
+  fill: currentcolor;
+}
+.bi-lg {
+  width: 4em;
+  height: 4em;
+}
+
+// Hide element using current color theme
+.d-dark {
+  display: none;
+}
+.d-light {
+  display: inline;
+}
+@include color-mode(dark) {
+  .d-dark {
+    display: inline;
+  }
+  .d-light {
+    display: none;
+  }
+}
+
+// Jumbotron
+.jumbotron {
+  background-color: #e9ecef;
+}
+@include color-mode(dark) {
+  .jumbotron {
+    background-color: #0C2545;
+  }
+}
+
+// Code blocks
+pre {
+  background-color: #f8f8f8;
+  padding: 0.8em;
+}
+@include color-mode(dark) {
+  pre {
+    color: #909090;
+    background-color: #091b33;
+  }
+}
+html[data-bs-theme="dark"] .highlight .err {
+  color: inherit !important;
+  background-color: transparent !important;
+}
+.highlight .err {
+  border: 0;
+}
+
+// Use Bootstrap styles for Hugo-generated markdown
+.markdown {
+  table {
+    @extend .table;
+    @extend .table-striped;
+    @extend .table-bordered;
+    @extend .text-center;
+    @extend .w-auto;
+  }
+  td, th {
+    @extend .p-3;
+  }
+  blockquote {
+    padding: 0 1em;
+    color: var(--color-fg-muted);
+    border-left: .25em solid var(--bs-secondary);
+  }
+  li p {
+    margin-top: 1rem;
+  }
+}
+
+// Tables style
+table.table-primary {
+  --bs-table-bg: white;
+  --bs-table-hover-bg: #f0f0f0;
+  border: 1px solid;
+}
+table.table-primary td {
+  border: 0;
+}
+table.table-primary thead th {
+  background-color: #f0f0f0;
+}
+table.table-primary tbody>tr:nth-child(odd)>td {
+  --bs-table-bg: #fafafa;
+}
+@include color-mode(dark) {
+  table.table-primary {
+    --bs-table-bg: #0c2545;
+    --bs-table-hover-bg: #091c34;
+    --bs-table-color: #adb5bd;
+    --bs-table-hover-color: #adb5bd;
+  }
+  table.table-primary thead th {
+    background-color: #0C2545;
+  }
+  table.table-primary tbody>tr:nth-child(odd)>td {
+    --bs-table-bg: #113564;
+  }
+}
+.col-score {
+  flex: none;
+  width: 4rem;
+}
+
+// Sortable tables
+table[data-sortable] th {
+  user-select: none;
+  cursor: pointer;
+}
+
+table tr.position-relative a:not(.stretched-link) {
+  z-index: 2;
+  position: relative;
+}
+
+// File hash
+.clip-sha256 {
+  display: block;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow-x: clip;
+  white-space: nowrap;
+}
+
+// Fix toast close button
+// See https://github.com/twbs/bootstrap/issues/39563
+.btn-close-dark, [data-bs-theme="dark"] .btn-close-dark {
+  filter: none;
+}
+
+// Add missing link-body for colored links
+.link-body {
+  color: RGBA(var(--bs-body-color-rgb),var(--bs-link-opacity,1)) !important;
+}
+
+// Circle avatar
+img.avatar {
+  border-radius: 50%;
+}
+
+.badge-button {
+  color: var(--bs-btn-color);
+  background-color: var(--bs-btn-bg);
+}
+
+.badge-button:hover {
+  color: var(--bs-btn-hover-color);
+  background-color: var(--bs-btn-hover-bg);
+}
+
+.challenge-vote-btn, .writeup-vote-btn {
+  color: rgba(var(--bs-tertiary-color-rgb), var(--bs-text-opacity, 1));
+  :hover {
+    color: rgba(var(--bs-danger-rgb), var(--bs-text-opacity, 1));
+  }
+}
+
+#refresh {
+  margin-right: calc(var(--#{$prefix}gutter-x) * .5); // stylelint-disable-line function-disallowed-list
+  margin-left: calc(var(--#{$prefix}gutter-x) * .5); // stylelint-disable-line function-disallowed-list
+}
+
+// Description list on multiple columns with separators
+dl {
+  @include make-row();
+  margin-bottom: 2em;
+}
+dt:not(:first-child) {
+  padding-top: 1em;
+  border-top: 1px solid var(--bs-secondary);
+}
+@include media-breakpoint-up(lg) {
+  dd:nth-child(n+3) {
+    padding-top: 1em;
+    border-top: 1px solid var(--bs-secondary);
+  }
+}
+dt {
+  @include make-col-ready();
+  @include media-breakpoint-up(lg) {
+    @include make-col(4);
+  }
+  @include media-breakpoint-down(lg) {
+    margin-bottom: $spacer * .50;
+  }
+}
+dd {
+  @include make-col-ready();
+  @include media-breakpoint-up(lg) {
+    @include make-col(8);
+  }
+}
+
+// Hide "Show writeups" button when active
+#details-writeups[open] summary {
+  display: none;
+}

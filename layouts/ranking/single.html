@@ -1,0 +1,100 @@
+{{- /*
+  Copyright (C) 2023-2024  ANSSI
+  SPDX-License-Identifier: MIT
+*/ -}}
+
+{{ define "main" }}
+<div class="jumbotron py-4 mb-3 text-center">
+  <h1 class="fw-light">{{ .Title | title }}</h1>
+  <div class="h5">
+    Top {{ .Site.Params.FCSC_TOP_LIMIT }}
+  </div>
+</div>
+
+<main class="container">
+  {{- $scoreboard := index $.Site.Data.scoreboards .File.TranslationBaseName }}
+  <div class="row">
+    <div class="col-lg-3">
+      <h2 class="h4 border-bottom border-secondary pb-2 mb-3 mt-2"><svg class="bi me-2" aria-hidden="true"><use href="#calendar-event"></use></svg>{{ i18n "date" | humanize }}</h2>
+      <ul>
+        <li>{{ i18n "start" }} <b>{{ .Params.Startdate }}</b></li>
+        <li>{{ i18n "end" }} <b>{{ .Params.Enddate }}</b></li>
+      </ul>
+      <h2 class="h4 border-bottom border-secondary pb-2 mb-3 mt-2"><svg class="bi me-2" aria-hidden="true"><use href="#bar-chart-line-fill"></use></svg>{{ i18n "statistics" | humanize }}</h2>
+      <ul>
+        <li><b>{{ $scoreboard.challenges }}</b> {{ i18n "challenges" }}</li>
+        <li><b>{{ $scoreboard.inscriptions }}</b> {{ i18n "registrations" }}</li>
+        <li><b>{{ $scoreboard.max_score }}</b> {{ i18n "possible_points" }}</li>
+      </ul>
+      <h2 class="h4 border-bottom border-secondary pb-2 mb-3 mt-2"><svg class="bi me-2" aria-hidden="true"><use href="#file-earmark-fill"></use></svg>{{ i18n "distribution" | humanize }}</h2>
+      <ul>
+        {{ range $category, $count := $scoreboard.categories -}}
+        <li><b>{{ $count }}</b> {{ i18n "in" }} {{ $category }}</li>
+        {{- end }}
+      </ul>
+      <h2 class="h4 border-bottom border-secondary pb-2 mb-3 mt-2"><svg class="bi me-2" aria-hidden="true"><use href="#bar-chart-line-fill"></use></svg>{{ i18n "rankings" | humanize }} FCSC</h2>
+      <ul>
+        {{ range sort (where site.RegularPages "Type" "ranking") ".Date" "desc" }}
+        <li><a href='{{ .RelPermalink }}'>{{ .LinkTitle }}</a></li>
+        {{ end }}
+      </ul>
+      <h2 class="h4 border-bottom border-secondary pb-2 mb-3 mt-2"><svg class="bi me-2" aria-hidden="true"><use href="#bar-chart-line-fill"></use></svg>{{ i18n "legend" | humanize }}</h2>
+      <ul>
+        <li>🇫🇷 {{ i18n "teamFR_selected" }}</li>
+        <li>🔥 {{ i18n "teasing_solved" }}</li>
+        <li><span class="badge badge-square me-2 text-bg-warning font-monospace fw-bold">J</span> Junior</li>
+        <li><span class="badge badge-square me-2 text-bg-danger font-monospace fw-bold">S</span> Senior</li>
+        <li><span class="badge badge-square me-2 text-bg-info font-monospace fw-bold">H</span> {{ i18n "hors_categorie" }}</li>
+      </ul>
+    </div>
+    <div class="col order-lg-first">
+      <div class="table-responsive">
+        <table class="table table-primary table-responsive" id="ranking-table">
+          <colgroup>
+            <col class="col-score">
+            <col class="col">
+            <col class="col-md-2 col-lg-2">
+          </colgroup>
+          <thead>
+            <tr>
+              <th></th>
+              <th class="text-nowrap"><svg class="bi me-2" aria-hidden="true"><use href="#person-fill"></use></svg>{{ i18n "login" | humanize }}</th>
+              <th class="text-nowrap"><svg class="bi me-2" aria-hidden="true"><use href="#graph-up-arrow"></use></svg>{{ i18n "score" | humanize }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{- range $index, $user := first  .Site.Params.FCSC_TOP_LIMIT $scoreboard.ranking }}
+            <tr>
+              <td class="text-end">
+                {{- if eq $index 0 -}}
+                <svg class="bi me-2 text-warning" aria-hidden="true"><use href="#award-fill"></use></svg>
+                {{- else if eq $index 1 -}}
+                <svg class="bi me-2 text-light-emphasis" aria-hidden="true"><use href="#award-fill"></use></svg>
+                {{- else if eq $index 2 -}}
+                <svg class="bi me-2 text-danger" aria-hidden="true"><use href="#award-fill"></use></svg>
+                {{- end }}
+                {{- add $index 1 -}}
+              </td>
+              <td>
+                {{ if eq $user.category "Junior" }}
+                <span class="badge badge-square me-2 text-bg-warning font-monospace fw-bold">J</span>
+                {{ else if eq $user.category "Senior" }}
+                <span class="badge badge-square me-2 text-bg-danger font-monospace fw-bold">S</span>
+                {{ else if eq $user.category "Hors Catégorie" }}
+                <span class="badge badge-square me-2 text-bg-info font-monospace fw-bold">H</span>
+                {{ end }}
+                <span class="d-none d-lg-inline">{{- $user.username  -}}</span>
+                <span class="d-lg-none">{{- $user.username | truncate 16 -}}</span>
+                {{- if $user.teasing }} 🔥{{ end -}}
+                {{- if $user.TeamFr }} 🇫🇷{{ end -}}
+              </td>
+              <td>{{ $user.score }}</td>
+            </tr>
+            {{- end }}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+{{ end }}

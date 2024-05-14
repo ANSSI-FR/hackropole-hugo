@@ -1,0 +1,4 @@
+---
+title: Statistiques
+type: statistics
+---

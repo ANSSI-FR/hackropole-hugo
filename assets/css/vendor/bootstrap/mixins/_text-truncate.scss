@@ -1,0 +1,11 @@
+// Copyright (c) 2011-2023 The Bootstrap Authors
+// SPDX-License-Identifier: MIT
+
+// Text truncate
+// Requires inline-block or block for proper styling
+
+@mixin text-truncate() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

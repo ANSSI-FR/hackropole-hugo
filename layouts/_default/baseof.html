@@ -1,0 +1,30 @@
+{{- /*
+  Copyright (C) 2023-2024  ANSSI
+  SPDX-License-Identifier: MIT
+*/ -}}
+
+<!DOCTYPE html>
+<html{{ with site.LanguageCode }} lang="{{ . }}"{{ end }}>
+<head>
+  {{ partial "head.html" . -}}
+  <title>{{ block "title" . }}{{ .Page.Title }} - Hackropole{{ end }}</title>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+  {{- partial "header.html" . -}}
+  {{- partial "icons.html" . }}
+
+  <div class="mb-4 flex-grow-1">
+    {{- block "main" . }}{{- end }}
+  </div>
+
+  {{- partial "footer.html" . }}
+  {{- partial "toasts.html" . }}
+
+  {{- block "javascript" . }}
+  {{- $js := resources.Get "js/default.js" | js.Build (dict "minify" hugo.IsProduction "params" (dict "api" .Site.Params.API_PATH)) | fingerprint }}
+  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+  {{- end }}
+</body>
+
+</html>

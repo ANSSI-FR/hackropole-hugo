@@ -1,0 +1,10 @@
+// Copyright (c) 2011-2023 The Bootstrap Authors
+// SPDX-License-Identifier: MIT
+
+// scss-docs-start mixin-color-scheme
+@mixin color-scheme($name) {
+  @media (prefers-color-scheme: #{$name}) {
+    @content;
+  }
+}
+// scss-docs-end mixin-color-scheme

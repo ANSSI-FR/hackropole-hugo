@@ -1,0 +1,15 @@
+# Copyright (C) 2023-2024  ANSSI
+# SPDX-License-Identifier: CC0-1.0
+
+name = "hackropole"
+license = "MIT"
+licenselink = "https://github.com/ANSSI-FR/hackropole-hugo/blob/master/LICENSE"
+description = "Hugo theme to host Capture-The-Flag challenges as a static website"
+homepage = "https://github.com/ANSSI-FR/hackropole-hugo"
+demosite = "https://hackropole.fr"
+tags = ["ctf", "challenge", "responsive", "dark mode"]
+features = ["responsive", "dark mode", "theme-toggle", "scroll-to-top", "search", "mobile", "multilingual"]
+authors = [
+  {name = "aiooss-anssi"},
+  {name = "jj-anssi"}
+]

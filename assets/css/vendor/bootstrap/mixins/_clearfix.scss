@@ -1,0 +1,12 @@
+// Copyright (c) 2011-2023 The Bootstrap Authors
+// SPDX-License-Identifier: MIT
+
+// scss-docs-start clearfix
+@mixin clearfix() {
+  &::after {
+    display: block;
+    clear: both;
+    content: "";
+  }
+}
+// scss-docs-end clearfix

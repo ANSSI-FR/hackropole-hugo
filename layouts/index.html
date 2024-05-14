@@ -1,0 +1,137 @@
+{{- /*
+  Copyright (C) 2023-2024  ANSSI
+  SPDX-License-Identifier: MIT
+*/ -}}
+
+{{ define "title" -}}
+Hackropole
+{{- end }}
+
+{{ define "main" }}
+<div class="jumbotron py-4">
+  <div class="container">
+    <div class="row my-4">
+      <div class="col-lg-7">
+        <h1 class="display-4 fw-bold lh-1 text-body-emphasis">{{ .Site.Title }}</h1>
+        <p class="lead">
+          {{ i18n "homepage_lead" | safeHTML }}
+        </p>
+        <div class="row row-cols-1 row-cols-sm-2">
+          <div class="col">
+            <div class="h4 fw-semibold mb-0 text-body-emphasis">{{ len (where .Site.RegularPages "Section" "challenges") }} {{ i18n "challenges" }}</div>
+            <p class="text-body-secondary">{{ i18n "of_increasing_difficulty" }}</p>
+          </div>
+          <div class="col">
+            {{- $writeups := where (where .Site.AllPages "Section" "writeups") "Kind" "page" }}
+            <div class="h4 fw-semibold mb-0 text-body-emphasis">{{ len $writeups }} {{ i18n "writeups" }}</div>
+            <p class="text-body-secondary">{{ i18n "to_help_you" }}</p>
+          </div>
+        </div>
+        {{ if .Site.Params.homepageNoticeTitle }}
+        <div class="lead p-3 text-bg-primary">
+          <p class="fw-semibold mb-1">
+            {{ .Site.Params.homepageNoticeTitle }}
+          </p>
+          <p>
+            {{ .Site.Params.homepageNoticeContent | safeHTML }}
+          </p>
+          {{ with .Site.Params.homepageNoticeCountdown }}
+          <p class="font-monospace text-center" data-countdown="{{ . }}">
+            <span class="countdown-day">·</span> {{ i18n "days" }} <span class="countdown-hour">··</span>:<span class="countdown-min">··</span>:<span class="countdown-sec">··</span> {{ i18n "remaining" }}
+          </p>
+          {{ end }}
+        </div>
+        {{ end }}
+        <div class="d-grid d-lg-block mt-3 my-lg-5">
+          <a class="btn btn-info btn-lg px-4 me-md-2 fw-bold" href="{{ relLangURL "/challenges/" }}">{{ i18n "explore_challenges" }}</a>
+        </div>
+      </div>
+      <div class="col-lg-5 p-3 text-center text-lg-end d-none d-lg-block">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <h2 class="mt-5 pb-2 border-bottom">{{ i18n "categories" }}</h2>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 pt-4 justify-content-md-center">
+    <a class="link-body text-decoration-none link-opacity-100 link-opacity-50-hover" href="{{ relLangURL "/" }}crypto/">
+      <div class="col d-flex align-items-start">
+        <svg class="bi bi-lg flex-shrink-0 me-3" aria-hidden="true"><use xlink:href="#lock"></use></svg>
+        <div>
+          <div class="h4 fw-bold">
+            Crypto
+          </div>
+          <p>{{ i18n "crypto_description" }}</p>
+        </div>
+      </div>
+    </a>
+    <a class="link-body text-decoration-none link-opacity-100 link-opacity-50-hover" href="{{ relLangURL "/" }}forensics/">
+      <div class="col d-flex align-items-start">
+        <svg class="bi bi-lg flex-shrink-0 me-3" aria-hidden="true"><use xlink:href="#search"></use></svg>
+        <div>
+          <div class="h4 fw-bold">
+            Forensics
+          </div>
+          <p>{{ i18n "forensics_description" }}</p>
+        </div>
+      </div>
+    </a>
+    <a class="link-body text-decoration-none link-opacity-100 link-opacity-50-hover" href="{{ relLangURL "/" }}hardware/">
+      <div class="col d-flex align-items-start">
+        <svg class="bi bi-lg flex-shrink-0 me-3" aria-hidden="true"><use xlink:href="#motherboard"></use></svg>
+        <div>
+          <div class="h4 fw-bold">
+            Hardware
+          </div>
+          <p>{{ i18n "hardware_description" }}</p>
+        </div>
+      </div>
+    </a>
+    <a class="link-body text-decoration-none link-opacity-100 link-opacity-50-hover" href="{{ relLangURL "/" }}pwn/">
+      <div class="col d-flex align-items-start">
+        <svg class="bi bi-lg flex-shrink-0 me-3" aria-hidden="true"><use xlink:href="#bug"></use></svg>
+        <div>
+          <div class="h4 fw-bold">
+            Pwn
+          </div>
+          <p>{{ i18n "pwn_description" }}</p>
+        </div>
+      </div>
+    </a>
+    <a class="link-body text-decoration-none link-opacity-100 link-opacity-50-hover" href="{{ relLangURL "/" }}reverse/">
+      <div class="col d-flex align-items-start">
+        <svg class="bi bi-lg flex-shrink-0 me-3" aria-hidden="true"><use xlink:href="#file-earmark-binary"></use></svg>
+        <div>
+          <div class="h4 fw-bold">
+            Reverse
+          </div>
+          <p>{{ i18n "reverse_description" }}</p>
+        </div>
+      </div>
+    </a>
+    <a class="link-body text-decoration-none link-opacity-100 link-opacity-50-hover" href="{{ relLangURL "/" }}web/">
+      <div class="col d-flex align-items-start">
+        <svg class="bi bi-lg flex-shrink-0 me-3" aria-hidden="true"><use xlink:href="#globe"></use></svg>
+        <div>
+          <div class="h4 fw-bold">
+            Web
+          </div>
+          <p>{{ i18n "web_description" }}</p>
+        </div>
+      </div>
+    </a>
+    <a class="link-body text-decoration-none link-opacity-100 link-opacity-50-hover" href="{{ relLangURL "/" }}misc/">
+      <div class="col d-flex align-items-start">
+        <svg class="bi bi-lg flex-shrink-0 me-3" aria-hidden="true"><use xlink:href="#lightbulb-fill"></use></svg>
+        <div>
+          <div class="h4 fw-bold">
+            Miscellaneous
+          </div>
+          <p>{{ i18n "misc_description" }}</p>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+{{ end }}

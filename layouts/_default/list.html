@@ -1,0 +1,37 @@
+{{- /*
+  Copyright (C) 2023-2024  ANSSI
+  SPDX-License-Identifier: MIT
+*/ -}}
+
+{{ define "title" -}}
+{{ if hasPrefix .Title "fcsc" -}}
+FCSC {{ substr .Title 4 }} - Hackropole
+{{- else -}}
+{{ .Page.Title | title }} - Hackropole
+{{- end }}
+{{- end }}
+
+{{ define "main" }}
+<div class="jumbotron py-4 mb-3 text-center">
+  <h1 class="fw-light">
+    {{- if hasPrefix .Title "fcsc" }}
+    {{- i18n "challenges_from_fcsc" }} {{ substr .Title 4 }}
+    {{- else }}
+    {{- .Title | title }}
+    {{- end -}}
+  </h1>
+  <div class="h5">
+    {{- len .RegularPages }} {{ i18n "challenges" }}
+  </div>
+</div>
+
+<main class="container">
+  {{ $challenges := (.RegularPages.ByParam "title").ByParam "difficulty" -}}
+  {{- partial "challenges_list.html" (dict "pages" $challenges "currentPage" .RelPermalink) }}
+</main>
+{{ end }}
+
+{{ define "javascript" }}
+{{- $js := resources.Get "js/challenges_list.js" | js.Build (dict "minify" hugo.IsProduction "params" (dict "api" .Site.Params.API_PATH)) | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+{{ end }}

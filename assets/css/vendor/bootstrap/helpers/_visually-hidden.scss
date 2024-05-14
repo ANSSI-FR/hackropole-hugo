@@ -1,0 +1,11 @@
+// Copyright (c) 2011-2023 The Bootstrap Authors
+// SPDX-License-Identifier: MIT
+
+//
+// Visually hidden
+//
+
+.visually-hidden,
+.visually-hidden-focusable:not(:focus):not(:focus-within) {
+  @include visually-hidden();
+}

@@ -1,0 +1,89 @@
+{{- /*
+  Copyright (C) 2023-2024  ANSSI
+  SPDX-License-Identifier: MIT
+*/ -}}
+
+{{- $hasChallenge := .hasChallenge | default false -}}
+{{- $sortable := .sortable | default true -}}
+{{- $challenges := false -}}
+{{- $challenge := false -}}
+{{- if $hasChallenge -}}
+{{- $challenges = where site.RegularPages "Section" "challenges" -}}
+{{- end -}}
+<div class="table-responsive">
+  <table class="table table-primary table-hover" {{ if $sortable }}data-sortable {{ end }}{{ with .tableId }}id="{{ . }}"{{ end }}>
+    <colgroup>
+      <col class="col-lg-2">
+      {{- if $hasChallenge -}}
+      <col class="col-lg-3">
+      {{- end -}}
+      <col class="col-lg-3">
+      <col class="col-lg-1">
+      <col class="col-lg-2">
+      <col class="col-lg-1">
+    </colgroup>
+    <thead>
+      <tr>
+        <th class="text-nowrap">{{ if $sortable }}<svg class="bi me-2 text-secondary"><use href="#sort"></use></svg>{{ end }}{{ i18n "date" | title }}</th>
+        {{- if $hasChallenge -}}
+        <th class="text-nowrap">{{ if $sortable }}<svg class="bi me-2 text-secondary"><use href="#sort"></use></svg>{{ end }}{{ i18n "title" | title }}</th>
+        {{- end -}}
+        <th class="text-nowrap">{{ if $sortable }}<svg class="bi me-2 text-secondary"><use href="#sort"></use></svg>{{ end }}{{ i18n "author" | title }}</th>
+        <th class="text-nowrap">{{ if $sortable }}<svg class="bi me-2 text-secondary"><use href="#sort"></use></svg>{{ end }}{{ i18n "language" | title }}</th>
+        <th class="text-nowrap">{{ if $sortable }}<svg class="bi me-2 text-secondary"><use href="#sort"></use></svg>{{ end }}{{ i18n "tags" | title }}</th>
+        <th class="text-nowrap">{{ if $sortable }}<svg class="bi me-2 text-secondary"><use href="#sort"></use></svg>{{ end }}{{ i18n "vote" | title }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{- range .pages }}
+      {{- if $hasChallenge -}}
+      {{- $challenge = index (where $challenges "Params.Shortname" .Params.challenge) 0 -}}
+      {{- end -}}
+      <tr data-solution="{{ .File.TranslationBaseName }}"{{ if $hasChallenge | default false }} data-challenge="{{ .Params.challenge }}"{{ end }}>
+        <td class="p-0">
+          <div class="position-relative p-2">
+            <a class="stretched-link" href="{{ .Permalink }}"></a>
+            <span class="badge text-bg-info">{{ time.Format  "2006-01-02" .Params.date }}</span>
+          </div>
+        </td>
+        {{- if $hasChallenge -}}
+        <td class="p-0">
+          <div class="position-relative p-2">
+            <a class="stretched-link" href="{{ .Permalink }}"></a>
+            <span class="text-body-emphasis">{{ $challenge.Params.title }}</span>
+          </div>
+        </td>
+        {{- end -}}
+        <td class="p-0">
+          <div class="position-relative p-2">
+            <a class="stretched-link" href="{{ .Permalink }}"></a>
+            <span class="text-body-emphasis">{{ .Params.Username }}</span>
+          </div>
+        </td>
+        <td class="p-0">
+          <div class="position-relative p-2">
+            <a class="stretched-link" href="{{ .Permalink }}"></a>
+            {{ if eq .Lang "en" }}🇬🇧{{ else }}🇫🇷{{ end }}
+          </div>
+        </td>
+        <td class="p-0">
+          <div class="position-relative p-2">
+            <a class="stretched-link" href="{{ .Permalink }}"></a>
+            {{- range .Params.writeupTags }}
+            <span class="badge text-bg-info me-1">{{ . }}</span>
+            {{- end }}
+          </div>
+        </td>
+        <td class="p-0" data-sort="0">
+          <div class="position-relative p-2">
+            <a class="stretched-link" href="{{ .Permalink }}"></a>
+            <a href="#" class="position-relative z-2 writeup-vote-btn text-opacity-25 text-decoration-none" aria-label="Vote" data-writeup="{{ .File.TranslationBaseName }}" data-title-active="{{ i18n "you_liked_this_writeup" }}" data-title-inactive="{{ i18n "click_to_like_this_writeup" }}">
+              <svg class="bi me-2" role="img"><use href="#hand-thumbs-up-fill"></use></svg>
+            </a>
+          </div>
+        </td>
+      </tr>
+      {{- end }}
+    </tbody>
+  </table>
+</div>

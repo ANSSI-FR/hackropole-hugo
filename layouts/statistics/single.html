@@ -1,0 +1,46 @@
+{{- /*
+  Copyright (C) 2023-2024  ANSSI
+  SPDX-License-Identifier: MIT
+*/ -}}
+
+{{ define "main" }}
+<div class="jumbotron py-4 mb-3 text-center">
+  <h1 class="fw-light">{{ .Title | title }}</h1>
+</div>
+
+<main class="container">
+  <h2>{{ i18n "solutions_most_recent" .Site.Params.WRITEUPS_RECENT_LIMIT }}</h2>
+  {{- $writeups_sorted := where (where .Site.AllPages "Section" "writeups") "Params.challenge" "not in" "" -}}
+  {{- $writeups_sorted := first .Site.Params.WRITEUPS_RECENT_LIMIT $writeups_sorted -}}
+  {{- partial "solution_list.html" (dict "pages" $writeups_sorted "hasChallenge" true "sortable" false) }}
+
+  <h2 class="mt-2">{{ i18n "challenges_most_upvoted" .Site.Params.CHALLENGES_TOP_LIMIT }}</h2>
+  {{- $challenges := where site.RegularPages "Section" "challenges" -}}
+  {{- $ranked_challenges := $.Site.Data.ranked_challenges -}}
+  {{- $challenges_sorted := slice -}}
+  {{- range first .Site.Params.CHALLENGES_TOP_LIMIT $ranked_challenges -}}
+  {{-   $challenge := where $challenges ".File.TranslationBaseName" . -}}
+  {{-   $challenges_sorted = $challenges_sorted | append $challenge -}}
+  {{- end -}}
+  {{- partial "challenges_list.html" (dict "pages" $challenges_sorted "sortable" false) }}
+
+  <h2 class="mt-2">{{ i18n "solutions_most_upvoted" .Site.Params.WRITEUPS_TOP_LIMIT }}</h2>
+  {{- $writeups := where site.AllPages "Section" "writeups" -}}
+  {{- $ranked_solutions := $.Site.Data.ranked_solutions -}}
+  {{- $writeups_sorted := slice -}}
+  {{- range first .Site.Params.WRITEUPS_TOP_LIMIT $ranked_solutions -}}
+  {{-   $writeup := where $writeups ".File.TranslationBaseName" . -}}
+  {{-   $writeups_sorted = $writeups_sorted | append $writeup -}}
+  {{- end -}}
+  {{- partial "solution_list.html" (dict "pages" $writeups_sorted "hasChallenge" true "sortable" false) }}
+
+  <p>{{ i18n "page_update" (now | time.Format ":date_long") }}</p>
+
+  <div id="wu-confirm-msg" class="d-none">{{ i18n "wu_confirm_msg" }}</div>
+</main>
+{{ end }}
+
+{{ define "javascript" }}
+{{- $js := resources.Get "js/statistics.js" | js.Build (dict "minify" hugo.IsProduction "params" (dict "api" .Site.Params.API_PATH)) | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+{{ end }}

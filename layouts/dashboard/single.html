@@ -1,0 +1,56 @@
+{{- /*
+  Copyright (C) 2023-2024  ANSSI
+  SPDX-License-Identifier: MIT
+*/ -}}
+
+{{ define "main" }}
+<div class="jumbotron py-4 mb-3 text-center">
+  <h1 class="fw-light">{{ i18n "dashboard_of" }} <span id="username-title"></span></h1>
+</div>
+
+<main class="container">
+  <div class="text-end">
+    <button id="refresh" type="button" class="btn btn-secondary"><svg class="bi" aria-hidden="true"><use xlink:href="#arrow-clockwise"></use></svg></button>
+  </div>
+  <h4><svg class="bi me-2"><use href="#flag-fill"></use></svg>{{ i18n "allvalidations" }}</h4>
+  {{- $challenges := where .Site.RegularPages "Section" "challenges" }}
+  {{- $writeups := where (where .Site.AllPages "Section" "writeups") "Kind" "page" }}
+
+  {{ partial "challenges_list.html" (dict "pages" $challenges "tableId" "flags-table" "hide" true "solutionStatus" true) }}
+
+  <div id="section-votes-challenges" class="d-none">
+    <h4><svg class="bi me-2"><use href="#hand-thumbs-up-fill"></use></svg>{{ i18n "voted-challenges" }}</h4>
+    {{ partial "challenges_list.html" (dict "pages" $challenges "tableId" "votes-challenges" "hide" true) }}
+  </div>
+  <div id="section-votes-solutions" class="d-none">
+    <h4><svg class="bi me-2"><use href="#hand-thumbs-up-fill"></use></svg>{{ i18n "voted-solutions" }}</h4>
+    {{ partial "solution_list.html" (dict "pages" $writeups "tableId" "votes-solutions" "hasChallenge" true) }}
+  </div>
+  <a id="download-data" href="#" class="link-secondary text-decoration-none"><svg class="bi" aria-hidden="true"><use xlink:href="#download"></use></svg> {{ i18n "download_account" }}</a><br />
+  <a id="delete" href="#" class="link-danger text-decoration-none"><svg class="bi" aria-hidden="true"><use xlink:href="#trash-fill"></use></svg> {{ i18n "delete_account" }}</a>
+</main>
+
+<div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="modal-deleteLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-deleteLabel">Confirmation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>{{ i18n "delete_confirm1" }}</p>
+        <p><svg class="bi me-2"><use href="#exclamation-triangle-fill"></use></svg><b>{{ i18n "delete_confirm2" }}</b></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ i18n "cancel" | title }}</button>
+        <button type="button" class="btn btn-primary" id="delete-confirm">{{ i18n "confirm" | title }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}
+
+{{ define "javascript" }}
+{{- $js := resources.Get "js/dashboard.js" | js.Build (dict "minify" hugo.IsProduction "params" (dict "api" .Site.Params.API_PATH "home_url" (relLangURL "/"))) | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+{{ end }}

@@ -1,0 +1,87 @@
+// Copyright (C) 2023-2024  ANSSI
+// SPDX-License-Identifier: MIT
+
+.search-input {
+  @include media-breakpoint-up(lg) {
+    width: 24em;
+  }
+}
+
+.autoComplete_wrapper {
+  position: relative;
+}
+
+.autoComplete_wrapper > ul {
+  --bs-dropdown-zindex: #{$zindex-dropdown};
+  @include rfs($dropdown-font-size, --bs-dropdown-font-size);
+  --bs-dropdown-color: #{$dropdown-color};
+  --bs-dropdown-bg: #{$dropdown-bg};
+  --bs-dropdown-border-color: #{$dropdown-border-color};
+  --bs-dropdown-border-radius: #{$dropdown-border-radius};
+  --bs-dropdown-border-width: #{$dropdown-border-width};
+  --bs-dropdown-link-color: #{$dropdown-link-color};
+  --bs-dropdown-link-hover-color: #{$dropdown-link-hover-color};
+  --bs-dropdown-link-hover-bg: #{$dropdown-link-hover-bg};
+  --bs-dropdown-item-padding-x: #{$dropdown-item-padding-x};
+  --bs-dropdown-item-padding-y: #{$dropdown-item-padding-y};
+
+  position: absolute;
+  z-index: var(--bs-dropdown-zindex);
+  font-size: var(--bs-dropdown-font-size);
+  color: var(--bs-dropdown-color);
+  background-color: var(--bs-dropdown-bg);
+  background-clip: padding-box;
+  border: var(--bs-dropdown-border-width) solid var(--bs-dropdown-border-color);
+  @include border-radius(var(--bs-dropdown-border-radius));
+  @include box-shadow(var(--bs-dropdown-box-shadow));
+  max-height: 226px;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding: 0;
+  margin: 0;
+  overflow-y: scroll;
+}
+
+.autoComplete_wrapper > ul[hidden],
+.autoComplete_wrapper > ul:empty {
+  display: none;
+}
+
+.autoComplete_wrapper > ul > li {
+  margin: 0.3rem;
+  padding: var(--bs-dropdown-item-padding-y) var(--bs-dropdown-item-padding-x);
+  font-weight: $font-weight-normal;
+  color: var(--bs-dropdown-link-color);
+  list-style: none;
+  color: var(--bs-dropdown-link-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.autoComplete_wrapper > ul > li::selection {
+  color: rgba(#ffffff, 0);
+  background-color: rgba(#ffffff, 0);
+}
+
+.autoComplete_wrapper > ul > li:hover {
+  cursor: pointer;
+  background-color: rgba(123, 123, 123, 0.1);
+}
+
+.autoComplete_wrapper > ul > li mark {
+  background-color: transparent;
+  color: rgba(255, 122, 122, 1);
+  font-weight: bold;
+  padding: 0;
+}
+
+.autoComplete_wrapper > ul > li mark::selection {
+  color: rgba(#ffffff, 0);
+  background-color: rgba(#ffffff, 0);
+}
+
+.autoComplete_wrapper > ul > li[aria-selected="true"] {
+  background-color: rgba(123, 123, 123, 0.1);
+}

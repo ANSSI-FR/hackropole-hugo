@@ -1,0 +1,55 @@
+{{- /*
+  Copyright (C) 2023-2024  ANSSI
+  SPDX-License-Identifier: MIT
+*/ -}}
+
+<div class="toast-container position-fixed top-0 end-0 p-3 mt-5">
+  <div id="toast-api-error" class="toast align-items-center text-bg-danger" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="10000">
+    <div class="d-flex">
+      <div class="toast-body">{{ i18n "api_error" }}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+
+  <div id="toast-writeup-error" class="toast align-items-center text-bg-danger" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="10000">
+    <div class="d-flex">
+      <div class="toast-body">{{ i18n "api_writeup_error" }}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+
+  <div id="toast-api-need-login" class="toast align-items-center text-bg-warning" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="10000">
+    <div class="d-flex">
+      <div class="toast-body">{{ i18n "api_need_login" }}</div>
+      <button type="button" class="btn-close btn-close-dark me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+
+  <div id="toast-challenge-flag-correct" class="toast align-items-center text-bg-success" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="10000">
+    <div class="d-flex">
+      <div class="toast-body">{{ i18n "challenge_flag_correct" }}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+
+  <div id="toast-challenge-flag-incorrect" class="toast align-items-center text-bg-danger" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="10000">
+    <div class="d-flex">
+      <div class="toast-body">{{ i18n "challenge_flag_incorrect" }}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+
+  <div id="toast-writeup-submit-bad-url" class="toast align-items-center text-bg-danger" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="10000">
+    <div class="d-flex">
+      <div class="toast-body">{{ i18n "writeup_submit_bad_url" }}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+
+  <div id="toast-writeup-submit-successful" class="toast align-items-center text-bg-success" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="10000">
+    <div class="d-flex">
+      <div class="toast-body">{{ i18n "writeup_submit_successful" }}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>

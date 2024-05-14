@@ -1,0 +1,71 @@
+# Copyright (C) 2023-2024  ANSSI
+# SPDX-License-Identifier: CC0-1.0
+
+baseURL: "https://example.com/"
+title: My CTF archives
+pluralizelisttitles: false
+disableKinds: ["taxonomy"]
+ignoreErrors: ["error-disable-taxonomy"]
+params:
+  # These paths must end with `/`
+  API_PATH: https://example.com/
+  FILER_PATH: https://example.com/filer/
+  FCSC_TOP_LIMIT: 1000
+  CHALLENGES_TOP_LIMIT: 20
+  WRITEUPS_TOP_LIMIT: 20
+  WRITEUPS_RECENT_LIMIT: 20
+
+# Thank you for using Hackropole theme :-)
+# You should clone the theme in ./themes/hackropole/
+theme: hackropole
+
+# Removes non-spacing marks from composite characters in content paths
+removePathAccents: true
+
+# Enable generation of robots.txt file for web crawlers
+enableRobotsTXT: true
+
+# A challenge has one category but multiple tags
+taxonomies:
+  category: category
+  fcsc: fcsc
+  tags: tags
+
+permalinks:
+  tags: /:slug:/
+  fcsc: /:slug:/
+
+languages:
+  fr:
+    languageCode: fr
+    languageName: 🇫🇷 Français
+    params:
+      description: Bienvenue sur ce site d'archivage d'épreuves de CTF.
+
+      # Homepage event banner
+      homepageNoticeTitle: Un évènement arrive !
+      homepageNoticeContent: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      # homepageNoticeCountdown: 1712322000000
+    weight: 1
+
+  en:
+    languageCode: en
+    languageName: 🇬🇧 English
+    params:
+      description: Welcome to this CTF challenges archive website.
+
+      # Homepage event banner
+      homepageNoticeTitle: Something is coming!
+      homepageNoticeContent: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      # homepageNoticeCountdown: 1712322000000
+    weight: 2
+
+# Add JSON for search engine and remove RSS on homepage
+outputs:
+  home: ["HTML", "JSON"]
+
+# Do not use inline styles for code highlighting (blocked by CSP header)
+markup:
+  highlight:
+    noClasses: false
+    style: solarized

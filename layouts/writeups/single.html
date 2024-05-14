@@ -1,0 +1,52 @@
+{{- /*
+  Copyright (C) 2023-2024  ANSSI
+  SPDX-License-Identifier: MIT
+*/ -}}
+
+{{ define "main" }}
+{{- $challPage := index (where (where .Site.RegularPages "Section" "challenges") "Params.shortname" .Params.challenge) 0 -}}
+<div class="jumbotron py-4 mb-3 text-center">
+  <h1 class="fw-light">{{ i18n "writeup_by_author_for_title" .Params.username }} <a href="{{ $challPage.Permalink }}" class="text-decoration-none fw-normal">{{ $challPage.Title }}</a></h1>
+  <p class="h5 p-1">
+      {{- if eq 0 $challPage.Params.difficulty }}
+      <span class="badge text-decoration-none text-bg-warning">intro</span>
+      {{- end }}
+    {{- range $challPage.Params.tags }}
+    {{- $href := print (relLangURL "/") (urlize .) }}
+    <a class="badge text-decoration-none text-bg-info mb-1" href="{{ $href }}">{{ . }}</a>
+    {{- end }}
+  </p>
+  <p class="h5">
+    <span class="badge text-bg-success">{{ time.Format ":date_long" .Params.date }}</span>
+  </p>
+  <p class="h5 d-print-none">
+    <a href="#" class="writeup-vote-btn text-opacity-25 text-decoration-none" aria-label="Vote" data-writeup="{{ .File.TranslationBaseName }}" data-title-active="{{ i18n "you_liked_this_writeup" }}" data-title-inactive="{{ i18n "click_to_like_this_writeup" }}">
+      <svg class="bi me-2" role="img"><use href="#hand-thumbs-up-fill"></use></svg>
+    </a>
+  </p>
+</div>
+
+{{ $tocLength := strings.Count "<li>" .TableOfContents }}
+{{- if eq 0 $tocLength }}
+<main class="container markdown">
+  {{ .Content }}
+</main>
+{{- else }}
+<main class="container markdown">
+  <div class="row">
+    <div class="col-lg-3 mb-3">
+      <div class="h4 border-bottom border-secondary pb-2 mb-3 mt-2"><svg class="bi me-2" aria-hidden="true"><use href="#list"></use></svg>{{ i18n "toc" }}</div>
+      {{ .TableOfContents }}
+    </div>
+    <div class="col-lg-9 order-lg-first">
+      {{ .Content }}
+    </div>
+  </div>
+</main>
+{{- end }}
+{{ end }}
+
+{{ define "javascript" }}
+{{ $js := resources.Get "js/writeup.js" | js.Build (dict "minify" hugo.IsProduction "params" (dict "api" .Site.Params.API_PATH)) | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+{{ end }}

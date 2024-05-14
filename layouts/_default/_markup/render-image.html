@@ -1,0 +1,14 @@
+{{- /*
+  Copyright (C) 2023-2024  ANSSI
+  SPDX-License-Identifier: MIT
+*/ -}}
+
+{{- $href := print .Destination -}}
+{{- if .Page.Params.group -}}
+{{- $href = print (absURL "/challenges/") .Page.Params.group "/" .Destination -}}
+{{- end -}}
+{{- if hasPrefix $href "data:" -}}
+{{/* Allow data: URIs */}}
+{{- $href = $href | safeURL -}}
+{{- end }}
+<img class="img-fluid" src="{{ $href }}" alt="{{ .PlainText }}"{{ with .Title }} title="{{.}}"{{ end }}>

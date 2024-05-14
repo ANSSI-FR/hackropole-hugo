@@ -1,0 +1,17 @@
+{{- /*
+  Copyright (C) 2023-2024  ANSSI
+  SPDX-License-Identifier: MIT
+*/ -}}
+
+{{- $challenges := where .Site.Pages "Section" "challenges" -}}
+[{{ range $index, $page := $challenges }}
+{{- if ne $page.Type "json" -}}
+{{- if and $index (gt $index 0) -}},{{- end }}
+    {
+        "uri": "{{ $page.Permalink }}",
+        "title": "{{ htmlEscape $page.Title}}",
+        "tags": [{{ range $tindex, $tag := $page.Params.tags }}{{ if $tindex }}, {{ end }}"{{ $tag| htmlEscape }}"{{ end }}],
+        "content": {{ $page.Plain | jsonify }}
+    }
+{{- end -}}
+{{- end -}}]

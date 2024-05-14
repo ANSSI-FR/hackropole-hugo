@@ -1,0 +1,55 @@
+{{- /*
+  Copyright (C) 2023-2024  ANSSI
+  SPDX-License-Identifier: MIT
+*/ -}}
+
+<footer class="text-bg-primary py-5" data-bs-theme="dark">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md">
+        ANSSI
+        <small class="d-block mb-3 text-body-secondary">© 2023-{{ dateFormat "2006" now }}</small>
+        <small class="d-block mb-3 text-body-secondary">
+            {{ i18n "license_etalab" | safeHTML }}
+        </small>
+      </div>
+      <div class="col-6 col-md d-print-none">
+        <div class="h5">{{- i18n "categories" | title -}}</div>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-decoration-none" href='{{ relLangURL "/challenges/" }}'>{{ i18n "menu_all_challenges" }}</a></li>
+          {{- range .Site.Taxonomies.category }}
+          <li><a class="text-decoration-none" href='{{ relLangURL "/" }}{{ .Page.Title }}/'>{{ .Page.Title | title }}</a></li>
+          {{- end }}
+        </ul>
+      </div>
+      <div class="col-6 col-md d-print-none">
+        <div class="h5">{{- i18n "statistics" | title -}}</div>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-decoration-none" href='{{ relLangURL "/statistics/" }}'>Hackropole</a></li>
+          <li><a class="text-decoration-none" href='{{ relLangURL "/ranking/fcsc2024/" }}'>FCSC 2024</a></li>
+          <li><a class="text-decoration-none" href='{{ relLangURL "/ranking/fcsc2023/" }}'>FCSC 2023</a></li>
+          <li><a class="text-decoration-none" href='{{ relLangURL "/ranking/fcsc2022/" }}'>FCSC 2022</a></li>
+          <li><a class="text-decoration-none" href='{{ relLangURL "/ranking/fcsc2021/" }}'>FCSC 2021</a></li>
+          <li><a class="text-decoration-none" href='{{ relLangURL "/ranking/fcsc2020/" }}'>FCSC 2020</a></li>
+          <li><a class="text-decoration-none" href='{{ relLangURL "/ranking/fcsc2019/" }}'>FCSC 2019</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md d-print-none">
+        <div class="h5">{{- i18n "about" | title -}}</div>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-decoration-none" href='{{ relLangURL "/faq/" }}'>{{- i18n "faq" | strings.FirstUpper -}}</a></li>
+          <li><a class="text-decoration-none" href='{{ relLangURL "/terms-of-use/" }}'>{{- i18n "terms-of-use" | strings.FirstUpper -}}</a></li>
+          <li><a class="text-decoration-none" href='{{ relLangURL "/personal-data/" }}'>{{- i18n "personal-data" | strings.FirstUpper -}}</a></li>
+          <li><a class="text-decoration-none" href="https://cyber.gouv.fr/">{{- i18n "anssi_website" -}}</a></li>
+          <li><a class="text-decoration-none" href="https://talents.ssi.gouv.fr/">{{- i18n "anssi_recrute" -}}</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md d-print-none">
+        <ul class="list-unstyled text-small">
+          <li><a class="text-decoration-none" href="#">{{- i18n "back_to_top" | strings.FirstUpper -}}</a></li>
+          <li><a class="text-decoration-none theme-switch" href="#">{{- i18n "toggle_theme" -}}</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

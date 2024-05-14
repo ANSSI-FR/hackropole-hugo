@@ -1,0 +1,10 @@
+// Copyright (c) 2011-2023 The Bootstrap Authors
+// SPDX-License-Identifier: MIT
+
+//
+// Text truncation
+//
+
+.text-truncate {
+  @include text-truncate();
+}

@@ -1,0 +1,25 @@
+{{- /*
+  Copyright (C) 2023-2024  ANSSI
+  SPDX-License-Identifier: MIT
+*/ -}}
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; font-src 'self'; style-src 'self'; script-src 'self' 'wasm-unsafe-eval'; img-src 'self' data:; connect-src 'self' {{ .Site.Params.API_PATH }}; form-action 'none'">
+<meta name="keywords" content="{{ range $i, $e := .Params.tags }}{{ if $i }}, {{ end }}{{ $e }}{{ end }}">
+<meta name="description" content="{{ if or .IsPage .IsSection }}{{ .Summary }}{{ else }}{{ site.Params.description }}{{ end }}">
+<meta name="theme-color" content="#091b33">
+{{ if .Params.noindex }}<meta name="robots" content="noindex">{{ end }}
+
+{{- partial "opengraph/opengraph.html" . -}}
+{{ partial "opengraph/twitter_cards.html" . }}
+
+{{- $svg := resources.Get "svg/favicon.svg" | minify | fingerprint }}
+<link rel="icon" href="{{ $svg.RelPermalink }}">
+{{- $css := resources.Get "css/style.scss" | toCSS (dict "outputStyle" "compressed") | minify | fingerprint }}
+<link rel="stylesheet" type="text/css" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+{{- with .OutputFormats.Get "rss" }}
+<link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ $.Site.Title }}" />
+{{- end }}
+{{- $js := resources.Get "js/color-mode-switcher.js" | js.Build (dict "minify" hugo.IsProduction) | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
