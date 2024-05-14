@@ -15,7 +15,7 @@ category: crypto
 fcsc: myctf
 tags:
     - crypto
-    - symmetric
+    - RSA
 authors:
     - changeme
 port:
