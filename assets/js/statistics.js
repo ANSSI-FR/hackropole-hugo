@@ -18,7 +18,7 @@ function refreshFlags () {
     document.querySelectorAll(`[data-challenge="${flag.challenge}"] .badge-flag`).forEach((el) => {
       const d = new Date(flag.date)
       el.textContent = d.toLocaleDateString('fr-CA') + ', ' + d.toLocaleTimeString('en-GB')
-      el.classList.remove('d-none')
+      el.classList.remove('invisible')
       el.closest('td').setAttribute('data-sort', flag.date)
     })
   })
