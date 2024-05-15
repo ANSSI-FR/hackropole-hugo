@@ -25,6 +25,8 @@ You may test a demo of this theme on [Hackropole](https://hackropole.fr/) websit
   * [KaTeX](https://github.com/KaTeX/KaTeX/) engine (math formula rendering)
   * [Solarized](https://ethanschoonover.com/solarized/) color theme
 
+![Thumbnail](https://raw.githubusercontent.com/ANSSI-FR/hackropole-hugo/main/images/tn.png)
+
 ## Quick start
 
 To get started, you should copy the content of `./exampleSite/`.
