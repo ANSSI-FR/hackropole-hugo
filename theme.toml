@@ -3,7 +3,7 @@
 
 name = "hackropole"
 license = "MIT"
-licenselink = "https://github.com/ANSSI-FR/hackropole-hugo/blob/master/LICENSE"
+licenselink = "https://raw.githubusercontent.com/ANSSI-FR/hackropole-hugo/main/LICENSES/MIT.txt"
 description = "Hugo theme to host Capture-The-Flag challenges as a static website"
 homepage = "https://github.com/ANSSI-FR/hackropole-hugo"
 demosite = "https://hackropole.fr"
