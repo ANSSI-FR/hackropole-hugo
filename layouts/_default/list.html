@@ -5,9 +5,9 @@
 
 {{ define "title" -}}
 {{ if hasPrefix .Title "fcsc" -}}
-FCSC {{ substr .Title 4 }} - Hackropole
+FCSC {{ substr .Title 4 }} - {{ .Site.Title }}
 {{- else -}}
-{{ .Page.Title | title }} - Hackropole
+{{ .Page.Title | title }} - {{ .Site.Title }}
 {{- end }}
 {{- end }}
 

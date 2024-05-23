@@ -7,7 +7,7 @@
 <html{{ with site.LanguageCode }} lang="{{ . }}"{{ end }}>
 <head>
   {{ partial "head.html" . -}}
-  <title>{{ block "title" . }}{{ .Page.Title }} - Hackropole{{ end }}</title>
+  <title>{{ block "title" . }}{{ .Page.Title }} - {{ .Site.Title }}{{ end }}</title>
 </head>
 
 <body class="d-flex flex-column min-vh-100">

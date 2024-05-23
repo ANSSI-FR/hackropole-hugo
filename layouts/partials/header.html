@@ -8,7 +8,7 @@
     <a href="{{ .Site.LanguagePrefix }}/" class="navbar-brand">
       {{- $svg := resources.Get "svg/favicon.svg" | minify | fingerprint }}
       <img class="img-fluid align-bottom" src="{{ $svg.RelPermalink }}" alt="" width="30" height="30">
-      Hackropole
+      {{ .Site.Title }}
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#base-navbars"
         aria-controls="base-navbars" aria-expanded="false" aria-label="Toggle navigation">
