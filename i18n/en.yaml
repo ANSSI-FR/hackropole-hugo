@@ -280,6 +280,9 @@ legend:
 teamFR_selected:
   other: Selected in Team France
 
+teamFR_captain:
+  other: Captain of Team France
+
 teasing_solved:
   other: Solved the teasing challenge
 

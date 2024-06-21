@@ -41,6 +41,7 @@
       <h2 class="h4 border-bottom border-secondary pb-2 mb-3 mt-2"><svg class="bi me-2" aria-hidden="true"><use href="#bar-chart-line-fill"></use></svg>{{ i18n "legend" | humanize }}</h2>
       <ul>
         <li>🇫🇷 {{ i18n "teamFR_selected" }}</li>
+        <li>👑 {{ i18n "teamFR_captain" }}</li>
         <li>🔥 {{ i18n "teasing_solved" }}</li>
         <li><span class="badge badge-square me-2 text-bg-warning font-monospace fw-bold">J</span> Junior</li>
         <li><span class="badge badge-square me-2 text-bg-danger font-monospace fw-bold">S</span> Senior</li>
@@ -87,6 +88,7 @@
                 <span class="d-lg-none">{{- $user.username | truncate 16 -}}</span>
                 {{- if $user.teasing }} 🔥{{ end -}}
                 {{- if $user.TeamFr }} 🇫🇷{{ end -}}
+                {{- if $user.captain }} 👑{{ end -}}
               </td>
               <td>{{ $user.score }}</td>
             </tr>
