@@ -19,7 +19,7 @@
 {{- $css := resources.Get "css/style.scss" | toCSS (dict "outputStyle" "compressed") | minify | fingerprint }}
 <link rel="stylesheet" type="text/css" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
 {{- with .OutputFormats.Get "rss" }}
-<link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ $.Site.Title }}" />
+<link rel="{{ .Rel }}" type="{{ .MediaType.Type | html }}" href="{{ .Permalink }}" title="{{ $.Site.Title }}" />
 {{- end }}
 {{- $js := resources.Get "js/color-mode-switcher.js" | js.Build (dict "minify" hugo.IsProduction) | fingerprint }}
 <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
