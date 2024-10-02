@@ -3,6 +3,8 @@
   SPDX-License-Identifier: MIT
 */ -}}
 
+{{ $imgs := slice }}
+
 {{ $featured := resources.Get "/img/social-card.png" }}
 
 {{/* Title */}}
@@ -32,4 +34,9 @@
     {{ end }}
 {{ end }}
 
-{{ return $featured }}
+{{- $imgs = $imgs | append (dict
+    "Image" $featured
+    "RelPermalink" $featured.RelPermalink
+    "Permalink" $featured.Permalink) }}
+
+{{- return $imgs }}

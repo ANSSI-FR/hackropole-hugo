@@ -18,7 +18,7 @@
         <ul class="list-unstyled text-small">
           <li><a class="text-decoration-none" href='{{ relLangURL "/challenges/" }}'>{{ i18n "menu_all_challenges" }}</a></li>
           {{- range .Site.Taxonomies.category }}
-          <li><a class="text-decoration-none" href='{{ relLangURL "/" }}{{ .Page.Title }}/'>{{ .Page.Title | title }}</a></li>
+          <li><a class="text-decoration-none" href='{{ relLangURL "/" }}{{ .Page.Title | lower }}/'>{{ .Page.Title }}</a></li>
           {{- end }}
         </ul>
       </div>
