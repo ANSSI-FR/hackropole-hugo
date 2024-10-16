@@ -1,8 +1,6 @@
 # Copyright (C) 2023-2024  ANSSI
 # SPDX-License-Identifier: MIT
 
-home = "Home"
-toc = "Table of contents"
 title = "Title"
 challenges = "challenges"
 challenge = "challenge"

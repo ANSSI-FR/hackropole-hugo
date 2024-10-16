@@ -24,11 +24,11 @@
             <li><a class="dropdown-item" href='{{ relLangURL "/challenges/" }}'>{{ i18n "menu_all_challenges" }}</a></li>
             <li><hr class="dropdown-divider"></li>
             {{- range .Site.Taxonomies.category }}
-            <li><a class="dropdown-item" href='{{ relLangURL "/" }}{{ .Page.Title | lower }}/'>{{ .Page.Title }}</a></li>
+            <li><a class="dropdown-item" href='{{ relLangURL "/" }}{{ .Page.Title | lower }}/'>{{ .Page.Title | title }}</a></li>
             {{- end }}
             <li><hr class="dropdown-divider"></li>
             {{- range sort .Site.Taxonomies.fcsc ".Page.Title" "desc" }}
-            {{- $year := replace .Page.Title "Fcsc" "" }}
+            {{- $year := replace .Page.Title "fcsc" "" }}
             <li><a class="dropdown-item" href='{{ .Page.Permalink }}'>FCSC {{ $year }}</a></li>
             {{- end }}
           </ul>

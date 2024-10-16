@@ -4,6 +4,7 @@
 baseURL: "https://example.com/"
 title: My CTF archives
 pluralizelisttitles: false
+capitalizeListTitles: false
 disableKinds: ["taxonomy"]
 ignoreErrors: ["error-disable-taxonomy"]
 params:

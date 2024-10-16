@@ -4,20 +4,20 @@
 */ -}}
 
 {{ define "title" -}}
-{{ if hasPrefix .Title "Fcsc" -}}
+{{ if hasPrefix .Title "fcsc" -}}
 FCSC {{ substr .Title 4 }} - {{ .Site.Title }}
 {{- else -}}
-{{ .Page.Title | title }} - {{ .Site.Title }}
+{{ (i18n .Title | default .Title) | title }} - {{ .Site.Title }}
 {{- end }}
 {{- end }}
 
 {{ define "main" }}
 <div class="jumbotron py-4 mb-3 text-center">
   <h1 class="fw-light">
-    {{- if hasPrefix .Title "Fcsc" }}
+    {{- if hasPrefix .Title "fcsc" }}
     {{- i18n "challenges_from_fcsc" }} {{ substr .Title 4 }}
     {{- else }}
-    {{- .Title | title }}
+    {{- (i18n .Title | default .Title) | title }}
     {{- end -}}
   </h1>
   <div class="h5">
