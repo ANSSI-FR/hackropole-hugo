@@ -1,6 +1,7 @@
 # Copyright (C) 2023-2024  ANSSI
 # SPDX-License-Identifier: MIT
 
+toc = "Table des matières"
 title = "Titre"
 challenges = "épreuves"
 challenge = "épreuve"
