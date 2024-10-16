@@ -13,7 +13,7 @@
       {{- end }}
     {{- range $challPage.Params.tags }}
     {{- $href := print (relLangURL "/") (urlize .) }}
-    <a class="badge text-decoration-none text-bg-info mb-1" href="{{ $href }}">{{ . }}</a>
+    <a class="badge text-decoration-none text-bg-info mb-1" href="{{ $href }}">{{ i18n . | default . }}</a>
     {{- end }}
   </p>
   <p class="h5">
