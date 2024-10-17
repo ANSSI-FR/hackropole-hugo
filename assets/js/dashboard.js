@@ -5,6 +5,7 @@
 // SPDX-License-Identifier: MIT
 
 import './lib/sortable.js'
+import './lib/common.js'
 import './lib/challengeVoteBtn.js'
 import './lib/writeupVoteBtn.js'
 import Modal from './vendor/bootstrap/modal.js'
