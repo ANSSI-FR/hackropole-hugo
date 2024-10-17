@@ -5,7 +5,6 @@
 // SPDX-License-Identifier: MIT
 
 import './lib/sortable.js'
-import { logout } from './lib/common.js'
 import './lib/challengeVoteBtn.js'
 import './lib/writeupVoteBtn.js'
 import Modal from './vendor/bootstrap/modal.js'
@@ -149,7 +148,7 @@ window.addEventListener('load', () => {
 
   document.getElementById('delete-confirm').addEventListener('click', () => {
     modal.hide()
-    HackropoleApi.deleteUserData().then(() => logout()).catch(() => {
+    HackropoleApi.deleteUserData().then(() => HackropoleApi.logout()).catch(() => {
       const toast = new Toast(document.getElementById('toast-api-error'))
       toast.show()
     })

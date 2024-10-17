@@ -1,4 +1,5 @@
 'use strict'
+/* eslint-env browser */
 
 // Copyright (C) 2023-2024  ANSSI
 // SPDX-License-Identifier: MIT
@@ -30,7 +31,7 @@ export default class HackropoleApi {
       body: JSON.stringify(params)
     })
     if (!response.ok) {
-      throw Error('autorize failed')
+      throw Error('authorize failed')
     }
 
     const data = await response.json()
@@ -60,9 +61,29 @@ export default class HackropoleApi {
   }
 
   /**
+   * Empty all local storage, except theme
+   *
+   * This function never returns as it refreshes the window.
+   */
+  static logout () {
+    // Backup and restore theme in localStorage
+    let theme
+    if ('theme' in window.localStorage) {
+      theme = window.localStorage.getItem('theme')
+    }
+    window.localStorage.clear()
+    if (theme) {
+      window.localStorage.setItem('theme', theme)
+    }
+    window.location.reload()
+  }
+
+  /**
    * Call API to refresh the access token
    *
    * This occurs when the access token is expired.
+   * This function may never return as it refreshes the window if unable to
+   * refresh the token.
    */
   static async refresh () {
     const auth = JSON.parse(window.localStorage.getItem('auth'))
@@ -72,7 +93,9 @@ export default class HackropoleApi {
       body: JSON.stringify(auth)
     })
     if (!response.ok) {
-      throw Error('login failed')
+      // Refresh failed, which means we should disconnect the user
+      alert('Authentication has expired, please try again after logging in.')
+      this.logout()
     }
 
     const data = await response.json()
@@ -143,7 +166,7 @@ export default class HackropoleApi {
   }
 
   /**
-   * Call API to vote/unvote a challenge.
+   * Call API to toggle a vote on a challenge.
    * @param {String} challenge - Challenge identifier, e.g. "fcsc2019-crypto-2tp"
    * @returns {Promise<String[]>} List of currently voted challenges
    */
@@ -155,7 +178,7 @@ export default class HackropoleApi {
   }
 
   /**
-   * Call API to vote/unvote a writeup.
+   * Call API to toggle a vote on a writeup.
    * @param {String} solution - Write-up UUID
    * @returns {Promise<String[]>} List of currently voted write-ups
    */

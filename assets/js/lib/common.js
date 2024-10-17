@@ -14,21 +14,6 @@ import Toast from '../vendor/bootstrap/toast.js'
 export const STORAGE_VERSION = '1'
 
 /**
- * Empty all local storage except theme, then reload
- */
-export function logout () {
-  let theme
-  if ('theme' in window.localStorage) {
-    theme = window.localStorage.getItem('theme')
-  }
-  window.localStorage.clear()
-  if (theme) {
-    window.localStorage.setItem('theme', theme)
-  }
-  window.location.reload()
-}
-
-/**
  * Fill login dropdown using providers from session storage
  */
 function fillLogin () {
@@ -67,7 +52,7 @@ async function queryLogin (redirectUri) {
 
 document.getElementById('btn-logout').addEventListener('click', (e) => {
   e.preventDefault()
-  logout()
+  HackropoleApi.logout()
 })
 
 const redirectUri = document.getElementById('menu-login').dataset.redirectUri
@@ -85,7 +70,7 @@ if (sessionStorage.getItem('providers_redirect_uri') === redirectUri) {
 }
 
 if (HackropoleApi.isLogged() && localStorage.getItem('version') !== STORAGE_VERSION) {
-  logout()
+  HackropoleApi.logout()
 }
 
 // Update menu status
