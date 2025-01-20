@@ -7,12 +7,13 @@
 <div class="jumbotron py-4 mb-3 text-center">
   <h1 class="fw-light">{{ .Title | title }}</h1>
   <div class="h5">
-    Top {{ .Site.Params.FCSC_TOP_LIMIT }}
+    <a href="#top-global">Top {{ .Site.Params.FCSC_TOP_LIMIT }}</a> &ndash; <a href="#top-categories">{{ i18n "top_3_by_categories"}}</a>
   </div>
 </div>
 
 <main class="container">
   {{- $scoreboard := index $.Site.Data.scoreboards .File.TranslationBaseName }}
+  <h3 id="top-global">Top {{ .Site.Params.FCSC_TOP_LIMIT }}</h3>
   <div class="row">
     <div class="col-lg-3">
       <h2 class="h4 border-bottom border-secondary pb-2 mb-3 mt-2"><svg class="bi me-2" aria-hidden="true"><use href="#calendar-event"></use></svg>{{ i18n "date" | humanize }}</h2>
@@ -43,6 +44,7 @@
         <li>🇫🇷 {{ i18n "teamFR_selected" }}</li>
         <li>👑 {{ i18n "teamFR_captain" }}</li>
         <li>🔥 {{ i18n "teasing_solved" }}</li>
+        <li>🔒 {{ i18n "clear_category" }}</li>
         <li><span class="badge badge-square me-2 text-bg-warning font-monospace fw-bold">J</span> Junior</li>
         <li><span class="badge badge-square me-2 text-bg-danger font-monospace fw-bold">S</span> Senior</li>
         <li><span class="badge badge-square me-2 text-bg-info font-monospace fw-bold">H</span> {{ i18n "hors_categorie" }}</li>
@@ -50,7 +52,7 @@
     </div>
     <div class="col order-lg-first">
       <div class="table-responsive">
-        <table class="table table-primary table-responsive" id="ranking-table">
+        <table class="table table-primary table-responsive">
           <colgroup>
             <col class="col-score">
             <col class="col">
@@ -97,6 +99,73 @@
         </table>
       </div>
     </div>
+  </div>
+
+  <h3 id="top-categories">{{ i18n "top_3_by_categories"}}</h3>
+  {{- $scoreboard_top3 := index $.Site.Data.scoreboards (printf "%s-top3" .File.TranslationBaseName) }}
+  <div class="row">
+    {{- range $category_age_top3cat := $scoreboard_top3 }}
+    {{- $category := index $category_age_top3cat 0 }}
+    {{- $age := index $category_age_top3cat 1 }}
+    {{- $top3 := index $category_age_top3cat 2 }}
+    <div class="col-xl-4 pb-3">
+      {{- if eq $age "external" }}
+      <h5>{{- $category }} / {{ i18n "hors_categorie" | lower }}</h5>
+      {{- else }}
+      <h5>{{- $category }} / {{ $age }}</h5>
+      {{- end }}
+      <table class="table table-primary table-responsive">
+        <colgroup>
+          <col class="col-score">
+          <col class="col">
+          <col class="col-md-2 col-lg-2">
+        </colgroup>
+        <thead>
+          <tr>
+            <th></th>
+            <th class="text-nowrap"><svg class="bi me-2" aria-hidden="true"><use href="#person-fill"></use></svg>{{ i18n "login" | humanize }}</th>
+            <th class="text-nowrap"><svg class="bi me-2" aria-hidden="true"><use href="#graph-up-arrow"></use></svg>{{ i18n "score" | humanize }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{- range $idx, $user_score := $top3 }}
+          {{- $username := index $user_score 0 }}
+          {{- $score := index $user_score 1 }}
+          {{- $locked := index $user_score 2 }}
+          {{- $teasing := index $user_score 3 }}
+          {{- $teamfr := index $user_score 4 }}
+          {{- $captain := index $user_score 5 }}
+          <tr>
+            <td class="text-end">
+              {{- if eq $idx 0 -}}
+              <svg class="bi me-2 text-warning" aria-hidden="true"><use href="#award-fill"></use></svg>
+              {{- else if eq $idx 1 -}}
+              <svg class="bi me-2 text-light-emphasis" aria-hidden="true"><use href="#award-fill"></use></svg>
+              {{- else if eq $idx 2 -}}
+              <svg class="bi me-2 text-danger" aria-hidden="true"><use href="#award-fill"></use></svg>
+              {{- end }}
+              {{- add $idx 1 -}}
+            </td>
+            <td>
+              {{- if eq $age "junior" -}}
+              <span class="badge badge-square me-2 text-bg-warning font-monospace fw-bold">J</span>
+              {{- else if eq $age "senior" -}}
+              <span class="badge badge-square me-2 text-bg-danger font-monospace fw-bold">S</span>
+              {{- else if eq $age "external" -}}
+              <span class="badge badge-square me-2 text-bg-info font-monospace fw-bold">H</span>
+              {{- end }}
+              {{- $username | truncate 16  -}}
+              {{- if $teasing }} 🔥{{ end -}}
+              {{- if $teamfr }} 🇫🇷{{ end -}}
+              {{- if $captain }} 👑{{ end -}}
+            </td>
+            <td>{{ $score }}{{ if $locked }} <span title="{{ i18n "clear_category" }}">🔒</span>{{- end }}</td>
+          </tr>
+          {{- end }}
+        </tbody>
+      </table>
+    </div>
+    {{- end }}
   </div>
 </main>
 {{ end }}
