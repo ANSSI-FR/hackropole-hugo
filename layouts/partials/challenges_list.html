@@ -8,7 +8,7 @@
   <table class="table table-primary table-hover" {{ if $sortable }}data-sortable {{ end }}{{ with .tableId }}id="{{ . }}"{{ end }}>
     <colgroup>
       <col class="col-lg-1">
-      <col class="col-lg-4">
+      <col class="col-4">
       <col class="col-lg-1">
       <col class="col-lg-1">
       <col class="col-lg-4">
@@ -77,9 +77,9 @@
               {{-   $href := print (relLangURL "/") (urlize .) "/" -}}
               {{/* Link back to unfiltered view if user clicks on action filter */}}
               {{-   if eq $.currentPage $href }}
-              <a class="position-relative z-2 badge text-decoration-none btn-info me-1 badge-button" href="{{ relLangURL "/challenges/" }}"><span class="tag-text" title="{{ i18n . | default . }}">{{ i18n . | default . }}</span></a>
+              <a class="position-relative z-2 badge text-decoration-none btn-info me-md-1 badge-button" href="{{ relLangURL "/challenges/" }}"><span class="tag-text" title="{{ i18n . | default . }}">{{ i18n . | default . }}</span></a>
               {{-   else }}
-              <a class="position-relative z-2 badge text-decoration-none btn-info me-1 badge-button" href="{{ $href }}"><span class="tag-text" title="{{ i18n . | default . }}">{{ i18n . | default . }}</span></a>
+              <a class="position-relative z-2 badge text-decoration-none btn-info me-md-1 badge-button" href="{{ $href }}"><span class="tag-text" title="{{ i18n . | default . }}">{{ i18n . | default . }}</span></a>
               {{-   end -}}
               {{- end }}
             </div>
