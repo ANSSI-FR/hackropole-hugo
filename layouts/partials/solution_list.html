@@ -31,7 +31,7 @@
         <th class="text-nowrap">{{ if $sortable }}<svg class="bi me-2 text-secondary"><use href="#sort"></use></svg>{{ end }}{{ i18n "author" | title }}</th>
         <th class="text-nowrap">{{ if $sortable }}<svg class="bi me-2 text-secondary"><use href="#sort"></use></svg>{{ end }}{{ i18n "language" | title }}</th>
         <th class="text-nowrap">{{ if $sortable }}<svg class="bi me-2 text-secondary"><use href="#sort"></use></svg>{{ end }}{{ i18n "tags" | title }}</th>
-        <th class="text-nowrap">{{ if $sortable }}<svg class="bi me-2 text-secondary"><use href="#sort"></use></svg>{{ end }}{{ i18n "vote" | title }}</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -75,7 +75,7 @@
           </div>
         </td>
         <td class="p-0" data-sort="0">
-          <div class="position-relative p-2">
+          <div class="position-relative p-2 text-end">
             <a class="stretched-link" href="{{ .Permalink }}"></a>
             <a href="#" class="position-relative z-2 writeup-vote-btn text-opacity-25 text-decoration-none" aria-label="Vote" data-writeup="{{ .File.TranslationBaseName }}" data-title-active="{{ i18n "you_liked_this_writeup" }}" data-title-inactive="{{ i18n "click_to_like_this_writeup" }}">
               <svg class="bi me-2" role="img"><use href="#hand-thumbs-up-fill"></use></svg>

@@ -74,7 +74,6 @@ solution_rejected = "declined"
 solution_review = "under review"
 solution_menu = "Solution"
 you_liked_this_solution = "You like this solution!"
-vote = "Vote"
 you_can_send_your_solution = """
 You can submit your writeup for this challenge.
 Read the <a href='{{ . }}'>FAQ</a> to learn how to proceed.

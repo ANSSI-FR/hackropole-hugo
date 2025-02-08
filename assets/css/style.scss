@@ -93,6 +93,18 @@ $input-height-border: 0;
   width: 4em;
   height: 4em;
 }
+svg.bi text {
+  font-size: 12px;
+  text-align: center;
+  text-anchor: middle;
+  font-weight: bold;
+  fill: #fff;
+}
+@include color-mode(dark) {
+  svg.bi text {
+    fill: #000;
+  }
+}
 
 // Hide element using current color theme
 .d-dark {

@@ -74,7 +74,6 @@ solution_rejected = "refusée"
 solution_review = "en relecture"
 solution_menu = "Solution"
 you_liked_this_solution = "Vous appréciez cette solution !"
-vote = "Vote"
 you_can_send_your_solution = """
 Vous pouvez envoyer votre solution rédigée pour cette épreuve.
 La  <a href='{{ . }}'>FAQ</a> contient la marche à suivre.
