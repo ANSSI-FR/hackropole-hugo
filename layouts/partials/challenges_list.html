@@ -18,9 +18,9 @@
       <tr>
         <th class="d-none d-md-table-cell text-nowrap">{{ if $sortable }}<svg class="bi me-2 text-secondary" aria-hidden="true"><use href="#sort"></use></svg>{{ end }}{{ (i18n "solved") | title }}</th>
         <th class="text-nowrap">{{ if $sortable }}<svg class="bi me-2 text-secondary" aria-hidden="true"><use href="#sort"></use></svg>{{ end }}{{ i18n "title"}}</th>
-        <th class="text-nowrap dir-u">{{ if $sortable }}<svg class="bi me-2 text-secondary" aria-hidden="true"><use href="#sort"></use></svg>{{ end }}{{ i18n "difficulty"}}</th>
+        <th class="text-nowrap dir-u"><span class="d-none d-md-inline">{{ if $sortable }}<svg class="bi me-2 text-secondary" aria-hidden="true"><use href="#sort"></use></svg>{{ end }}{{ i18n "difficulty"}}</span></th>
         <th class="d-none d-lg-table-cell text-nowrap">{{ if $sortable }}<svg class="bi me-2 text-secondary" aria-hidden="true"><use href="#sort"></use></svg>{{ end }}FCSC</th>
-        <th class="d-none d-md-table-cell text-nowrap">{{ if $sortable }}<svg class="bi me-2 text-secondary" aria-hidden="true"><use href="#sort"></use></svg>{{ end }}{{ i18n "tags"}}</th>
+        <th class="text-nowrap"><span class="d-none d-md-inline">{{ if $sortable }}<svg class="bi me-2 text-secondary" aria-hidden="true"><use href="#sort"></use></svg>{{ end }}{{ i18n "tags"}}</span></th>
         {{- if $.solutionStatus }}
         <th class="d-none d-md-table-cell text-nowrap">{{ if $sortable }}<svg class="bi me-2 text-secondary" aria-hidden="true"><use href="#sort"></use></svg>{{ end }}Solution</th>
         {{- else }}
@@ -43,8 +43,8 @@
             <span class="text-body-emphasis">{{ $value.Title }}</span>
           </div>
         </td>
-        <td class="p-0" data-sort="{{ $value.Params.Difficulty }}">
-          <div class="position-relative p-2">
+        <td class="text-nowrap p-0" data-sort="{{ $value.Params.Difficulty }}">
+          <div class="position-relative p-2 text-end text-md-start">
             <a class="stretched-link" href="{{ $value.RelPermalink }}"></a>
             {{- range (seq $value.Params.Difficulty) -}}
             <svg class="bi me-2 text-warning" role="img"><title>star</title><use href="#star-fill"></use></svg>
@@ -69,18 +69,20 @@
             {{- end -}}
           </div>
         </td>
-        <td class="d-none d-md-table-cell p-0">
+        <td class="p-0">
           <div class="position-relative p-2">
             <a class="stretched-link" href="{{ $value.RelPermalink }}"></a>
-            {{- range $value.Params.tags -}}
-            {{-   $href := print (relLangURL "/") (urlize .) "/" -}}
-            {{/* Link back to unfiltered view if user clicks on action filter */}}
-            {{-   if eq $.currentPage $href }}
-            <a class="position-relative z-2 badge text-decoration-none btn-info me-1 badge-button" href="{{ relLangURL "/challenges/" }}">{{ i18n . | default . }}</a>
-            {{-   else }}
-            <a class="position-relative z-2 badge text-decoration-none btn-info me-1 badge-button" href="{{ $href }}">{{ i18n . | default . }}</a>
-            {{-   end -}}
-            {{- end }}
+            <div class="tags-expand-md">
+              {{- range $value.Params.tags -}}
+              {{-   $href := print (relLangURL "/") (urlize .) "/" -}}
+              {{/* Link back to unfiltered view if user clicks on action filter */}}
+              {{-   if eq $.currentPage $href }}
+              <a class="position-relative z-2 badge text-decoration-none btn-info me-1 badge-button" href="{{ relLangURL "/challenges/" }}"><span class="tag-text" title="{{ i18n . | default . }}">{{ i18n . | default . }}</span></a>
+              {{-   else }}
+              <a class="position-relative z-2 badge text-decoration-none btn-info me-1 badge-button" href="{{ $href }}"><span class="tag-text" title="{{ i18n . | default . }}">{{ i18n . | default . }}</span></a>
+              {{-   end -}}
+              {{- end }}
+            </div>
           </div>
         </td>
         {{ if $.solutionStatus -}}

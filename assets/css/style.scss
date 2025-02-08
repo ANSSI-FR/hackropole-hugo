@@ -210,6 +210,35 @@ table.table-primary tbody>tr:nth-child(odd)>td {
   width: 4rem;
 }
 
+// Keep only first tag and shorten in mobile-view mode in table
+table .tags-expand-md {
+  @include media-breakpoint-down(md) {
+    a.badge:not(:first-child) {
+      display: none;
+    }
+    a.badge:first-child .tag-text {
+      display: inline-block;
+      width: 4ch;
+      text-overflow: "";
+      overflow: hidden;
+
+      &[title="reverse"],
+      &[title="crypto"],
+      &[title="forensics"] {
+        width: 3ch;
+      }
+      &[title="hardware"] {
+        width: 3ch;
+        visibility: hidden;
+        &:before {
+          content: 'hw';
+          visibility: visible;
+        }
+      }
+    }
+  }
+}
+
 // Sortable tables
 table[data-sortable] th {
   user-select: none;
