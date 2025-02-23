@@ -219,20 +219,37 @@ table .tags-expand-md {
     a.badge:first-child .tag-text {
       display: inline-block;
       width: 4ch;
-      text-overflow: "";
       overflow: hidden;
+      &:before {
+        visibility: visible;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
 
-      &[title="reverse"],
-      &[title="crypto"],
+      // Overrides
+      &[title="reverse"] {
+        visibility: hidden;
+        &:before {
+          content: 'rev';
+        }
+      }
+      &[title="crypto"] {
+        visibility: hidden;
+        &:before {
+          content: 'cry';
+        }
+      }
       &[title="forensics"] {
-        width: 3ch;
+        visibility: hidden;
+        &:before {
+          content: 'for';
+        }
       }
       &[title="hardware"] {
-        width: 3ch;
         visibility: hidden;
         &:before {
           content: 'hw';
-          visibility: visible;
         }
       }
     }
